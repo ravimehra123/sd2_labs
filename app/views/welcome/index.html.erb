@@ -1,0 +1,35 @@
+
+<% if can? :generate_secret_code, SecretCode %>
+<h3>Generate Secret Code</h3>
+<div>
+  <%= form_tag "generate_secret_code", method: :get, id: "generate_secret_code-form" do %>
+    <div class="form-group row no-padding text-center col-md-12">
+      <div class="col-md-2">
+        <%= select_tag("code_value", options_for_select([["1",1],["10",10],["20",20],["50",50],["100",100]], 10)) %>
+      </div>
+      <div class="col-md-2">
+        <%= button_tag(type: :submit, class: "btn btn-sm btn-success") do %>
+         Generate Secret Code
+        <% end %>
+      </div>
+    </div>
+  
+  <% end %>
+</div>
+<%end%>
+
+<div class="col-md-12">
+  <div class="col-md-6"><h4>Secret Code</h4></div><div class="col-md-6"><h4>Email</h4></div>
+  <% if @secret_codes %>
+    <% @secret_codes.each do |secret_code|%>
+      <div class="col-md-6"><%= secret_code.code %></div>
+        <% if secret_code.user %>
+          <div class="col-md-6"><%= secret_code.user.email %></div>
+        <% else %>
+          <div class="col-md-6">NA</div>
+        <%end%>
+    <% end %>
+  <% end %>
+  
+</div>
+
